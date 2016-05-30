@@ -5,16 +5,17 @@ public class SpawnScript : MonoBehaviour
 {
     GameObject[] collectibles;
 
-    float spawnTime = 3f;
     public float itemSpeed = 0.1f;
-
+    float spawnTime = 2f;
     float timeElapsed = 0;
-    int difficulty = 0;
+    float minSpawnTime = 0.5f;
 
     // Use this for initialization
     void Start()
     {
         collectibles = Resources.LoadAll<GameObject>("Prefabs");
+
+        //Spawn the first object
         RandomSpawn();
     }
 
@@ -22,6 +23,7 @@ public class SpawnScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Count time
         timeElapsed += Time.deltaTime;
 
         if (timeElapsed > spawnTime)
@@ -32,7 +34,7 @@ public class SpawnScript : MonoBehaviour
             
     }
 
-
+    //This function spawn a object in game
     void RandomSpawn()
     {
         int prefab = Random.Range(0, collectibles.Length);
@@ -43,14 +45,11 @@ public class SpawnScript : MonoBehaviour
         nextObject.transform.position = new Vector3(xPosition, nextObject.transform.position.y, nextObject.transform.position.z);
     }
 
-
+    //This function adjust the difficulty, reducing the spawn time
     public void AdjustDifficulty()
     {
-        itemSpeed += 0.05f;
-        difficulty++;
-
-        if (difficulty % 2 == 0)
-            spawnTime -= 0.1f;       
+        if (spawnTime > minSpawnTime)
+            spawnTime = spawnTime - 0.1f;       
     }
 
 }

@@ -11,6 +11,7 @@ public class DestroyerScript : MonoBehaviour
         game = GameObject.Find("Player").GetComponent<GameManager>();
     }
 
+
     void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Collectible")
